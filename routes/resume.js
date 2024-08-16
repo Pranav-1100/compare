@@ -186,4 +186,82 @@ router.post('/network-analysis', authMiddleware, async (req, res) => {
   }
 });
 
+router.post('/personal-brand', authMiddleware, async (req, res) => {
+  try {
+    const { careerGoals } = req.body;
+    const personalBrand = await ResumeService.generatePersonalBrand(req.user.id, careerGoals);
+    res.json({ personalBrand });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/analyze-video', authMiddleware, async (req, res) => {
+  try {
+    const { transcription } = req.body;
+    const analysis = await ResumeService.analyzeVideoResume(req.user.id, transcription);
+    res.json({ analysis });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/skill-development', authMiddleware, async (req, res) => {
+  try {
+    const { targetRole } = req.body;
+    const plan = await ResumeService.getSkillDevelopmentPlan(req.user.id, targetRole);
+    res.json({ plan });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/industry-trends', authMiddleware, async (req, res) => {
+  try {
+    const { industry, timeframe } = req.query;
+    const trends = await ResumeService.analyzeIndustryTrends(industry, timeframe);
+    res.json({ trends });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/recruiter-outreach', authMiddleware, async (req, res) => {
+  try {
+    const { recruiterId, jobPostingId } = req.body;
+    const message = await ResumeService.generateRecruiterOutreach(req.user.id, recruiterId, jobPostingId);
+    res.json({ message });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/diversity-check', authMiddleware, async (req, res) => {
+  try {
+    const feedback = await ResumeService.checkDiversityInclusion(req.user.id);
+    res.json({ feedback });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/gig-opportunities', authMiddleware, async (req, res) => {
+  try {
+    const opportunities = await ResumeService.matchGigOpportunities(req.user.id);
+    res.json({ opportunities });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/career-pivot', authMiddleware, async (req, res) => {
+  try {
+    const { targetIndustry } = req.body;
+    const advice = await ResumeService.adviseCareerPivot(req.user.id, targetIndustry);
+    res.json({ advice });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;
