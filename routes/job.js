@@ -1,12 +1,12 @@
 const express = require('express');
-const JobService = require('../services/jobService');
+const { JobPosting } = require('../database');
 const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
 router.post('/', authMiddleware, async (req, res) => {
   try {
-    const jobPosting = await JobService.createJobPosting(req.body, req.user.id);
+    const jobPosting = await JobPosting.create(req.body);
     res.status(201).json(jobPosting);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -15,18 +15,20 @@ router.post('/', authMiddleware, async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const jobPostings = await JobService.getJobPostings();
+    const jobPostings = await JobPosting.findAll();
     res.json(jobPostings);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-router.post('/:id/score-resume', authMiddleware, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const { resumeContent } = req.body;
-    const score = await JobService.scoreResumeForJob(resumeContent, req.params.id);
-    res.json(score);
+    const jobPosting = await JobPosting.findByPk(req.params.id);
+    if (!jobPosting) {
+      return res.status(404).json({ error: 'Job posting not found' });
+    }
+    res.json(jobPosting);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

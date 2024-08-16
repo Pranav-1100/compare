@@ -1,0 +1,1002 @@
+{
+    "info": {
+        "name": "AI-Powered Resume Platform API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Job Postings",
+                    "item": [
+                        {
+                            "name": "Create Job Posting",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{auth_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/jobs",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "jobs"
+                                    ]
+                                },
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n    \"title\": \"Software Engineer\",\n    \"description\": \"We are looking for a talented software engineer...\",\n    \"company\": \"Tech Co\",\n    \"location\": \"San Francisco, CA\"\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "name": "Get All Job Postings",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "{{base_url}}/jobs",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "jobs"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "name": "Get Job Posting by ID",
+                            "request": {
+                                "method": "GET",
+                                "url": {
+                                    "raw": "{{base_url}}/jobs/:id",
+                                    "host": [
+                                        "{{base_url}}"
+                                    ],
+                                    "path": [
+                                        "jobs",
+                                        ":id"
+                                    ],
+                                    "variable": [
+                                        {
+                                            "key": "id",
+                                            "value": "job_id_here"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "me"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Resume Management",
+            "item": [
+                {
+                    "name": "Create Base Resume",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/base",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "base"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"Your resume content here\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Base Resume",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/base",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "base"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Compare Resume",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/compare",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "compare"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"Resume content to compare\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Input Resumes",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/input",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "input"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Resume History",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/history",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "history"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Improve Resume",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/improve",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "improve"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"content\": \"Resume content to improve\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Job Applications",
+            "item": [
+                {
+                    "name": "Generate Cover Letter",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/cover-letter/:jobId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "cover-letter",
+                                ":jobId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "jobId",
+                                    "value": "job_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Interview Questions",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/interview-questions/:jobId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "interview-questions",
+                                ":jobId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "jobId",
+                                    "value": "job_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Analyze Skill Gap",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/skill-gap/:jobId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "skill-gap",
+                                ":jobId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "jobId",
+                                    "value": "job_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Optimize Keywords",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/optimize-keywords/:jobId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "optimize-keywords",
+                                ":jobId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "jobId",
+                                    "value": "job_id_here"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Career Development",
+            "item": [
+                {
+                    "name": "Translate Resume",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/translate",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "translate"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"targetLanguage\": \"Spanish\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Tailor Resume for Industry",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/tailor",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "tailor"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"industry\": \"Technology\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Personality Assessment",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/personality",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "personality"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Predict Career Trajectory",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/career-trajectory?yearsAhead=5",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "career-trajectory"
+                            ],
+                            "query": [
+                                {
+                                    "key": "yearsAhead",
+                                    "value": "5"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Advanced Features",
+            "item": [
+                {
+                    "name": "Generate Personal Brand",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/personal-brand",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "personal-brand"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"careerGoals\": \"Become a senior software engineer in 5 years\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Analyze Video Resume",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/analyze-video",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "analyze-video"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"transcription\": \"Video resume transcription here\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Skill Development Plan",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/skill-development",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "skill-development"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"targetRole\": \"Data Scientist\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Analyze Industry Trends",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/industry-trends?industry=Technology&timeframe=5",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "industry-trends"
+                            ],
+                            "query": [
+                                {
+                                    "key": "industry",
+                                    "value": "Technology"
+                                },
+                                {
+                                    "key": "timeframe",
+                                    "value": "5"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Generate Recruiter Outreach",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/recruiter-outreach",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "recruiter-outreach"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"recruiterId\": \"recruiter_id_here\",\n    \"jobPostingId\": \"job_posting_id_here\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Check Diversity and Inclusion",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/diversity-check",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "diversity-check"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Match Gig Opportunities",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/gig-opportunities",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "gig-opportunities"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Career Pivot Advice",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/career-pivot",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "career-pivot"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"targetIndustry\": \"Healthcare\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Job Tracking",
+            "item": [
+                {
+                    "name": "Track Job Application",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/job-application",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "job-application"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"jobPostingId\": \"job_posting_id_here\",\n    \"status\": \"applied\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Job Applications",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/job-applications",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "job-applications"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Interview Preparation",
+            "item": [
+                {
+                    "name": "Mock Interview",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/mock-interview/:jobId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "mock-interview",
+                                ":jobId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "jobId",
+                                    "value": "job_id_here"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"userResponse\": \"User's answer to the interview question\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Get Salary Negotiation Advice",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/salary-negotiation/:jobId",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "salary-negotiation",
+                                ":jobId"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "jobId",
+                                    "value": "job_id_here"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Network Analysis",
+            "item": [
+                {
+                    "name": "Analyze Professional Network",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{auth_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/resume/network-analysis",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "resume",
+                                "network-analysis"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"connections\": [\n        {\"name\": \"John Doe\", \"position\": \"Software Engineer\", \"company\": \"Tech Co\"},\n        {\"name\": \"Jane Smith\", \"position\": \"Project Manager\", \"company\": \"Big Corp\"}\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:3000"
+        },
+        {
+            "key": "auth_token",
+            "value": "your_auth_token_here"
+        }
+    ]
+}
