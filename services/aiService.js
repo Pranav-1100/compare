@@ -34,6 +34,41 @@ class AIService {
     });
     return response.choices[0].message.content.trim();
   }
+  
+  static async generateCoverLetter(resumeText, jobDescription) {
+    const prompt = `Generate a cover letter based on this resume and job description:\n\nResume:\n${resumeText}\n\nJob Description:\n${jobDescription}\n\nCover Letter:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async predictInterviewQuestions(jobDescription) {
+    const prompt = `Predict 5 likely interview questions for this job description:\n\n${jobDescription}\n\nQuestions:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async analyzeSkillGap(resumeSkills, jobRequirements) {
+    const prompt = `Analyze the skill gap between these resume skills and job requirements:\n\nResume Skills:\n${resumeSkills}\n\nJob Requirements:\n${jobRequirements}\n\nSkill Gap Analysis:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async suggestNetworking(industry, jobTitle) {
+    const prompt = `Suggest networking strategies for someone in the ${industry} industry applying for a ${jobTitle} position:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async optimizeResumeKeywords(resumeText, jobDescription) {
+    const prompt = `Suggest keywords to add to this resume based on the job description:\n\nResume:\n${resumeText}\n\nJob Description:\n${jobDescription}\n\nSuggested Keywords:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async estimateSalary(jobTitle, location, experience) {
+    const prompt = `Estimate the salary range for a ${jobTitle} in ${location} with ${experience} years of experience:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async recommendCareerPath(currentRole, skills, interests) {
+    const prompt = `Recommend a career path for someone currently in a ${currentRole} role with these skills and interests:\n\nSkills: ${skills}\nInterests: ${interests}\n\nCareer Path Recommendation:`;
+    return this.getCompletion(prompt);
+  }
 }
 
 module.exports = AIService;

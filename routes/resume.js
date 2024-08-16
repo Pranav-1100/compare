@@ -1,5 +1,6 @@
 const express = require('express');
 const { BaseResume, InputResume } = require('../database');
+const ResumeService = require('../services/resumeService');
 const authMiddleware = require('../middleware/auth');
 const { compareResumesWithAI } = require('../utils/resumeComparison');
 
@@ -62,5 +63,23 @@ router.get('/input', authMiddleware, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.get('/history', authMiddleware, async (req, res) => {
+    try {
+      const history = await ResumeService.getResumeHistory(req.user.id);
+      res.json(history);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+  router.post('/improve', authMiddleware, async (req, res) => {
+    try {
+      const suggestions = await ResumeService.getResumeImprovement(req.body.content);
+      res.json({ suggestions });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
 
 module.exports = router;
