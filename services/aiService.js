@@ -126,6 +126,21 @@ Provide the response in the following JSON format:
     const prompt = `Analyze the strength and potential of this professional network:\n${JSON.stringify(connections)}`;
     return this.getCompletion(prompt);
   }
+
+  static async generatePersonalBrandStatement(resumeContent, careerGoals) {
+    const prompt = `Create a compelling personal brand statement based on this resume and career goals:\n\nResume:\n${resumeContent}\n\nCareer Goals:\n${careerGoals}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async analyzeVideoResume(transcription) {
+    const prompt = `Analyze this video resume transcription and provide feedback on content, delivery, and areas for improvement:\n\n${transcription}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async getSkillDevelopmentPlan(currentSkills, targetRole) {
+    const prompt = `Create a gamified skill development plan to transition from current skills to the target role:\n\nCurrent Skills:\n${currentSkills}\n\nTarget Role:\n${targetRole}`;
+    return this.getCompletion(prompt);
+  }
 }
 
 module.exports = AIService;

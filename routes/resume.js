@@ -99,4 +99,91 @@ router.get('/optimize-keywords/:jobId', authMiddleware, async (req, res) => {
   }
 });
 
+router.post('/translate', authMiddleware, async (req, res) => {
+  try {
+    const { targetLanguage } = req.body;
+    const translatedResume = await ResumeService.translateResume(req.user.id, targetLanguage);
+    res.json({ translatedResume });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/tailor', authMiddleware, async (req, res) => {
+  try {
+    const { industry } = req.body;
+    const tailoredResume = await ResumeService.tailorResumeForIndustry(req.user.id, industry);
+    res.json({ tailoredResume });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/personality', authMiddleware, async (req, res) => {
+  try {
+    const personalityAssessment = await ResumeService.assessPersonality(req.user.id);
+    res.json({ personalityAssessment });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/career-trajectory', authMiddleware, async (req, res) => {
+  try {
+    const { yearsAhead } = req.query;
+    const careerTrajectory = await ResumeService.predictCareerTrajectory(req.user.id, yearsAhead);
+    res.json({ careerTrajectory });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/job-application', authMiddleware, async (req, res) => {
+  try {
+    const { jobPostingId, status } = req.body;
+    const jobApplication = await ResumeService.trackJobApplication(req.user.id, jobPostingId, status);
+    res.json({ jobApplication });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/job-applications', authMiddleware, async (req, res) => {
+  try {
+    const jobApplications = await ResumeService.getJobApplications(req.user.id);
+    res.json({ jobApplications });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/mock-interview/:jobId', authMiddleware, async (req, res) => {
+  try {
+    const { userResponse } = req.body;
+    const interviewFeedback = await ResumeService.simulateMockInterview(req.params.jobId, userResponse);
+    res.json({ interviewFeedback });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/salary-negotiation/:jobId', authMiddleware, async (req, res) => {
+  try {
+    const negotiationAdvice = await ResumeService.getSalaryNegotiationAdvice(req.user.id, req.params.jobId);
+    res.json({ negotiationAdvice });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post('/network-analysis', authMiddleware, async (req, res) => {
+  try {
+    const { connections } = req.body;
+    const networkAnalysis = await ResumeService.analyzeNetworkStrength(connections);
+    res.json({ networkAnalysis });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;

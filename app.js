@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { initDatabase } = require('./database');
 const authRoutes = require('./routes/auth');
@@ -5,7 +6,6 @@ const resumeRoutes = require('./routes/resume');
 const jobRoutes = require('./routes/job');
 const careerRoutes = require('./routes/career');
 const analyticsRoutes = require('./routes/analytics');
-
 const app = express();
 
 app.use(express.json());
