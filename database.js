@@ -7,18 +7,17 @@ const sequelize = new Sequelize({
   logging: false //console.log
 });
 
-// Define the User model
-const User = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  }
-});
+// Import models
+const User = require('./models/user')(sequelize, DataTypes);
+const BaseResume = require('./models/baseResume')(sequelize, DataTypes);
+const InputResume = require('./models/inputResume')(sequelize, DataTypes);
+
+// Define associations
+User.hasOne(BaseResume);
+BaseResume.belongsTo(User);
+
+User.hasMany(InputResume);
+InputResume.belongsTo(User);
 
 const initDatabase = async () => {
   try {
@@ -35,5 +34,7 @@ module.exports = {
   sequelize,
   initDatabase,
   User,
+  BaseResume,
+  InputResume,
   Op: Sequelize.Op
 };
