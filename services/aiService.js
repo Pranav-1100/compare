@@ -91,6 +91,41 @@ Provide the response in the following JSON format:
     });
     return response.choices[0].message.content.trim();
   }
+
+  static async translateResume(resumeContent, targetLanguage) {
+    const prompt = `Translate the following resume to ${targetLanguage}:\n\n${resumeContent}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async tailorResumeForIndustry(resumeContent, industry) {
+    const prompt = `Tailor the following resume for the ${industry} industry:\n\n${resumeContent}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async assessPersonality(resumeContent) {
+    const prompt = `Analyze the following resume and provide a brief personality assessment based on the content:\n\n${resumeContent}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async predictCareerTrajectory(resumeContent, yearsAhead) {
+    const prompt = `Based on the following resume, predict potential career paths and positions for ${yearsAhead} years ahead:\n\n${resumeContent}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async simulateMockInterview(jobDescription, userResponse) {
+    const prompt = `Act as an interviewer for this job description:\n${jobDescription}\n\nCandidate's response:\n${userResponse}\n\nProvide feedback and a follow-up question:`;
+    return this.getCompletion(prompt);
+  }
+
+  static async getSalaryNegotiationAdvice(jobOffer, userExperience) {
+    const prompt = `Provide salary negotiation advice for this job offer:\n${jobOffer}\n\nCandidate's experience:\n${userExperience}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async analyzeNetworkStrength(connections) {
+    const prompt = `Analyze the strength and potential of this professional network:\n${JSON.stringify(connections)}`;
+    return this.getCompletion(prompt);
+  }
 }
 
 module.exports = AIService;
