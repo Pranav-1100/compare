@@ -82,4 +82,40 @@ router.get('/history', authMiddleware, async (req, res) => {
     }
   });
 
+  router.post('/cover-letter/:jobId', authMiddleware, async (req, res) => {
+    try {
+      const coverLetter = await ResumeService.generateCoverLetter(req.user.id, req.params.jobId);
+      res.json({ coverLetter });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+  router.get('/interview-questions/:jobId', authMiddleware, async (req, res) => {
+    try {
+      const questions = await ResumeService.predictInterviewQuestions(req.params.jobId);
+      res.json({ questions });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+  router.get('/skill-gap/:jobId', authMiddleware, async (req, res) => {
+    try {
+      const analysis = await ResumeService.analyzeSkillGap(req.user.id, req.params.jobId);
+      res.json({ analysis });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
+  router.get('/optimize-keywords/:jobId', authMiddleware, async (req, res) => {
+    try {
+      const keywords = await ResumeService.optimizeResumeKeywords(req.user.id, req.params.jobId);
+      res.json({ keywords });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });  
+
 module.exports = router;

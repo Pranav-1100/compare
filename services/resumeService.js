@@ -1,5 +1,5 @@
 const { BaseResume, InputResume } = require('../database');
-const aiService = require('./aiService');
+const AIService = require('./aiService');
 
 class ResumeService {
   static async createBaseResume(userId, content) {
@@ -21,6 +21,29 @@ class ResumeService {
 
   static async getResumeImprovement(resumeContent) {
     return aiService.getResumeImprovement(resumeContent);
+  }
+
+  static async generateCoverLetter(userId, jobPostingId) {
+    const baseResume = await this.getBaseResume(userId);
+    const jobPosting = await JobPosting.findByPk(jobPostingId);
+    return AIService.generateCoverLetter(baseResume.content, jobPosting.description);
+  }
+
+  static async predictInterviewQuestions(jobPostingId) {
+    const jobPosting = await JobPosting.findByPk(jobPostingId);
+    return AIService.predictInterviewQuestions(jobPosting.description);
+  }
+
+  static async analyzeSkillGap(userId, jobPostingId) {
+    const baseResume = await this.getBaseResume(userId);
+    const jobPosting = await JobPosting.findByPk(jobPostingId);
+    return AIService.analyzeSkillGap(baseResume.skills.join(', '), jobPosting.requirements);
+  }
+
+  static async optimizeResumeKeywords(userId, jobPostingId) {
+    const baseResume = await this.getBaseResume(userId);
+    const jobPosting = await JobPosting.findByPk(jobPostingId);
+    return AIService.optimizeResumeKeywords(baseResume.content, jobPosting.description);
   }
 }
 
