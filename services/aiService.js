@@ -6,7 +6,29 @@ const openai = new OpenAI({
 
 class AIService {
   static async compareResumes(baseResumeText, inputResumeText) {
-    // Implementation similar to the previous compareResumesWithAI function
+    const prompt = `
+Compare the following two resumes and provide a similarity score between 0 and 1, where 1 is identical and 0 is completely different. Also provide a brief explanation of the similarities and differences.
+
+Base Resume:
+${baseResumeText}
+
+Input Resume:
+${inputResumeText}
+
+Provide the response in the following JSON format:
+{
+  "similarityScore": 0.75,
+  "explanation": "Brief explanation here"
+}
+`;
+
+    try {
+      const response = await this.getCompletion(prompt);
+      return JSON.parse(response);
+    } catch (error) {
+      console.error('Error comparing resumes:', error);
+      throw new Error('Failed to compare resumes using AI');
+    }
   }
 
   static async extractSkills(resumeText) {
@@ -25,16 +47,6 @@ class AIService {
     return this.getCompletion(prompt);
   }
 
-  static async getCompletion(prompt) {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.7,
-      max_tokens: 500,
-    });
-    return response.choices[0].message.content.trim();
-  }
-  
   static async generateCoverLetter(resumeText, jobDescription) {
     const prompt = `Generate a cover letter based on this resume and job description:\n\nResume:\n${resumeText}\n\nJob Description:\n${jobDescription}\n\nCover Letter:`;
     return this.getCompletion(prompt);
@@ -68,6 +80,16 @@ class AIService {
   static async recommendCareerPath(currentRole, skills, interests) {
     const prompt = `Recommend a career path for someone currently in a ${currentRole} role with these skills and interests:\n\nSkills: ${skills}\nInterests: ${interests}\n\nCareer Path Recommendation:`;
     return this.getCompletion(prompt);
+  }
+
+  static async getCompletion(prompt) {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+      max_tokens: 500,
+    });
+    return response.choices[0].message.content.trim();
   }
 }
 
