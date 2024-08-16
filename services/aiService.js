@@ -141,6 +141,31 @@ Provide the response in the following JSON format:
     const prompt = `Create a gamified skill development plan to transition from current skills to the target role:\n\nCurrent Skills:\n${currentSkills}\n\nTarget Role:\n${targetRole}`;
     return this.getCompletion(prompt);
   }
+
+  static async analyzeIndustryTrends(industry, timeframe) {
+    const prompt = `Analyze current trends and forecast future skill demands for the ${industry} industry over the next ${timeframe} years.`;
+    return this.getCompletion(prompt);
+  }
+
+  static async generateRecruiterOutreachMessage(resumeContent, recruiterInfo, jobDescription) {
+    const prompt = `Generate a personalized outreach message to a recruiter based on this resume, recruiter information, and job description:\n\nResume:\n${resumeContent}\n\nRecruiter Info:\n${recruiterInfo}\n\nJob Description:\n${jobDescription}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async checkDiversityInclusion(resumeContent) {
+    const prompt = `Analyze this resume for language that might impact diversity and inclusion, and suggest improvements:\n\n${resumeContent}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async matchGigOpportunities(skills, preferences) {
+    const prompt = `Match these skills and preferences with potential gig economy opportunities:\n\nSkills:\n${skills}\n\nPreferences:\n${preferences}`;
+    return this.getCompletion(prompt);
+  }
+
+  static async adviseCareerPivot(currentResume, targetIndustry) {
+    const prompt = `Provide advice for a career pivot based on this resume and target industry:\n\nCurrent Resume:\n${currentResume}\n\nTarget Industry:\n${targetIndustry}`;
+    return this.getCompletion(prompt);
+  }
 }
 
 module.exports = AIService;
