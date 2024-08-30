@@ -2,15 +2,56 @@ const { BaseResume, InputResume, JobPosting } = require('../database');
 const AIService = require('./aiService');
 
 class ResumeService {
+  static mockBaseResume = {
+    UserId: 1,
+    content: `
+John Doe
+Software Developer
+123 Main St, Anytown, USA 12345
+Phone: (555) 123-4567 | Email: john.doe@email.com
+
+Summary:
+Experienced software developer with 5+ years of expertise in full-stack web development, specialized in JavaScript, React, and Node.js. Passionate about creating efficient, scalable, and user-friendly applications.
+
+Skills:
+- Programming Languages: JavaScript, Python, Java
+- Front-end: React, Vue.js, HTML5, CSS3
+- Back-end: Node.js, Express.js, Django
+- Databases: MongoDB, PostgreSQL
+- DevOps: Docker, AWS, CI/CD
+- Version Control: Git, GitHub
+
+Experience:
+Senior Software Developer | TechCorp Inc. | 2018 - Present
+- Led development of a high-traffic e-commerce platform, increasing sales by 30%
+- Implemented microservices architecture, improving system scalability
+- Mentored junior developers and conducted code reviews
+
+Software Developer | WebSolutions LLC | 2015 - 2018
+- Developed and maintained multiple client websites using React and Node.js
+- Optimized database queries, reducing load times by 40%
+
+Education:
+Bachelor of Science in Computer Science | Tech University | 2011 - 2015
+
+Certifications:
+- AWS Certified Developer - Associate
+- MongoDB Certified Developer
+    `,
+    skills: ['JavaScript', 'React', 'Node.js', 'Python', 'Java', 'MongoDB', 'AWS']
+  };
+
   static async createBaseResume(userId, content) {
     const skills = await AIService.extractSkills(content);
     return BaseResume.create({ UserId: userId, content, skills });
   }
 
   static async getBaseResume(userId) {
-    return BaseResume.findOne({ where: { UserId: userId } });
+    // For demonstration purposes, return the mock base resume
+    // In a real application, you would query the database
+    return Promise.resolve(this.mockBaseResume);
   }
-
+  
   static async compareAndSaveResume(userId, inputContent) {
     const baseResume = await this.getBaseResume(userId);
     if (!baseResume) {
