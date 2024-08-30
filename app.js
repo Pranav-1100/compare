@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors'); // Add this line
 const { initDatabase } = require('./database');
 const authRoutes = require('./routes/auth');
 const resumeRoutes = require('./routes/resume');
@@ -7,6 +8,9 @@ const jobRoutes = require('./routes/job');
 const careerRoutes = require('./routes/career');
 const analyticsRoutes = require('./routes/analytics');
 const app = express();
+
+// Use CORS middleware
+app.use(cors()); // Add this line
 
 app.use(express.json());
 
